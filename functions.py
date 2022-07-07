@@ -1,15 +1,13 @@
 import pygame as pyg
 from disp import gameDisplay,display_width,display_height
 from colors import black,blue
-
-def text_objects(text, font):
-    textSurface = font.render(text, True, black)
-    return textSurface, textSurface.get_rect()
+from functions2 import button,text_objects
 
 
 	
 def enemy_hits(count):
   font = pyg.font.Font("amatic-sc.bold.ttf", 25)
+
   text = font.render("Dodged: "+str(count), True, blue)
   gameDisplay.blit(text,(0,0))
 

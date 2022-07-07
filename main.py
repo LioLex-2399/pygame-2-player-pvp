@@ -3,6 +3,7 @@
 ##############################
 
 #import
+from functions2 import button,text_objects
 import pygame as pyg
 import time
 import random
@@ -16,7 +17,7 @@ white,
 bright_green,
 bright_red
 )
-from functions import text_objects,enemy_hits
+from functions import enemy_hits,fail
 from enemy_n_player import plyr,plyr_width,enemy
 from disp import display_height,display_width,gameDisplay,display
 clock = pyg.time.Clock()
@@ -34,7 +35,7 @@ display()
 
 #gameDisplay name
 
-r=bright_blue,black
+r=bright_blue,black,blue,plyr_width 
 block_color = (53,115,255)
 ##############################
 ##############################
@@ -59,10 +60,7 @@ pause = False
 #####setting up stuff =D######
 ##############################
 #counting how many "enemy" we have hits_taken
-def enemy_hits(count):
-    font = pyg.font.Font("amatic-sc.bold.ttf", 25)
-    text = font.render("Dodged: "+str(count), True, blue)
-    gameDisplay.blit(text,(0,0))
+
 #making the "thing"s
 
  
@@ -89,20 +87,7 @@ def collided():
         pyg.gameDisplay.update()
         clock.tick(15) 
 #setting up buttons
-def button(msg,x,y,w,h,ic,ac,action=None):
-    mouse = pyg.mouse.get_pos()
-    click = pyg.mouse.get_pressed()
 
-    if x+w > mouse[0] > x and y+h > mouse[1] > y:
-        pyg.draw.rect(gameDisplay, ac,(x,y,w,h))
-        if click[0] == 1 and action != None:
-            action()         
-    else:
-        pyg.draw.rect(gameDisplay, ic,(x,y,w,h))
-    smallText = pyg.font.SysFont("comicsansms",20)
-    textSurf, textRect = text_objects(msg, smallText)
-    textRect.center = ( (x+(w/2)), (y+(h/2)) )
-    gameDisplay.blit(textSurf, textRect)
     
 #defines a Quit function that if used will stop the game almost instantly
 def quitgame():
@@ -182,7 +167,8 @@ def game_loop():
  
     thing_startx = random.randrange(0, display_width)
     thing_starty = -600
-    thing_speed = 20
+    #thing_speed = 20
+    thing_speed = 100
     thing_width = 100
     thing_height = 100
  
@@ -243,7 +229,7 @@ def game_loop():
 	        gameDisplay.blit(text2,(0,20))
 
         elif hits_taken >= 101:
-           quit()
+           fail()
 
 		
         if thing_starty > display_height:
