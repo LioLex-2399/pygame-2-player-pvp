@@ -3,29 +3,37 @@
 ##############################
 
 #import
-from functions2 import button,text_objects
-import pygame as pyg
+import pygame
 import time
 import random
-from colors import (
+"""from colors import (
 blue,
 red,
 green,
-bright_blue,
+
 black,
 white,
-bright_green,
-bright_red
-)
-from functions import enemy_hits,fail
-from enemy_n_player import plyr,plyr_width,enemy
-from disp import display_height,display_width,gameDisplay,display
-clock = pyg.time.Clock()
-pyg.init()
-display()
+
+
+)"""
+
+#from disp import display_height,display_width,gameDisplay,display
+clock = pygame.time.Clock()
+pygame.init()
+#
+display_height=600
+display_width=800
+gameDisplay = pygame.display.set_mode((display_width, display_height))
+#
+blue = 0,0,255
+green = 0,255,0
+red= 255,0,0
+greendull = 0,90,0
+reddull = 90,0,0
+bluedull = 0,155,0
 ##############################
 ##############################
-#pyg
+#pygame
 ##############################
 ###########gameDisplay############
 ##############################
@@ -35,140 +43,136 @@ display()
 
 #gameDisplay name
 
-r=bright_blue,black,blue,plyr_width 
 block_color = (53,115,255)
-##############################
-##############################
 m=time
-
-##############################
-######creating a player#######
-##############################
-
-
 ##############################
 ##############################
 
-################################################
-###setting the loop "fuel" to keep it running###
-################################################	
-pause = False
-##############################
-##############################
-
-##############################
-#####setting up stuff =D######
-##############################
-#counting how many "enemy" we have hits_taken
-
-#making the "thing"s
-
- 
-#the objects text are written on
-
-
-#sets up what happens when u collide with a thing
-def collided():
-    largeText = pyg.font.SysFont("comicsansms",115)
-    TextSurf, TextRect = text_objects("You Died!", largeText)
-    TextRect.center = ((display_width/2),(display_height/2))
-    gameDisplay.blit(TextSurf, TextRect)
+"""
+def text(text, font):
+    textSurface = font.render(text, True, black)
+    return textSurface, textSurface.get_rect()
+"""
+background_colour=255,255,255
+gameDisplay.fill(background_colour)
+def mainmenu():
+	onplay= True
     
+	
+	while True:
+		for event in pygame.event.get():
+			
 
-    while True:
-        for event in pyg.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				quit()
+			elif event.type ==pygame.KEYDOWN:
+				if event.key == pygame.K_q :
+					pygame.quit()
+					quit()
+					break
+				if event.key == pygame.K_s:
+					break
+					
+						
+					
+##########################################
+##########################################
+		font1 = pygame.font.SysFont('chalkduster.ttf', 72)
+		img1 = font1.render('BOSS BATTLE!', True, blue)
+		gameDisplay.blit(img1, (200, 300))
+##########################################
+############### play button ##############
+		pygame.draw.rect(gameDisplay,green,pygame.Rect(90, 400, 150, 60))
+##########################################
+##########################################
+		font2 = pygame.font.SysFont('chalkduster.ttf', 40)
+		img2 = font2.render('start(s)', True, greendull)
+		gameDisplay.blit(img2, (125, 410))
+##########################################
+############### quit button ##############
 
-            if event.type == pyg.QUIT:
-                pyg.quit()
-                quit()
-        button("Play Again",150,450,100,50,green,bright_green,game_loop)
-        button("Quit ",550,450,100,50,red,bright_red,quitgame)
+		pygame.draw.rect(gameDisplay,red,pygame.Rect(490, 400, 150, 60))
+##########################################
+##########################################
+		font2 = pygame.font.SysFont('chalkduster.ttf', 50)
+		img2 = font2.render('Quit(q)', True, reddull)
+		gameDisplay.blit(img2, (525, 410))
+##########################################
+##########################################
 
-        pyg.gameDisplay.update()
-        clock.tick(15) 
-#setting up buttons
+		pygame.display.update()
 
+
+mainmenu()
+
+"""	        if event.type == pygame.KEYDOWN:
+	            if event.key == pygame.K_LEFT:
+	                x = x - 5
+	            if event.key == pygame.K_RIGHT:
+	                x = x + 5
+	            if event.key == pygame.K_a:
+	                x = x - 5
+	            if event.key == pygame.K_d:
+	                x = x + 5
+	            if event.key == pygame.K_SPACE:
+	                print("space")
+gameDisplay.blit(plyrImg,(x,y))
+gameDisplay.blit(plyrImg,(e_x,e_y))
+font1 = pygame.font.SysFont('chalkduster.ttf', 72)
+img1 = font1.render('health', True, blue)
+gameDisplay.blit(img1, (750, 30))
+"""
+
+
+
+
+
+
+"""
+def button(msg,x,y,w,h,ic,ac,action=None):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:
+        pygame.draw.rect(gameDisplay, ac,(x,y,w,h))
+        if click[0] == 1 and action != None:
+            action()         
+    else:
+        pygame.draw.rect(gameDisplay, ic,(x,y,w,h))
+    smallText = pygame.font.SysFont("comicsansms",20)
+    textSurf, textRect = text_objects(msg, smallText)
+    textRect.center = ( (x+(w/2)), (y+(h/2)) )
+    gameDisplay.blit(textSurf, textRect)
     
 #defines a Quit function that if used will stop the game almost instantly
 def quitgame():
-    pyg.quit()
+    pygame.quit()
     quit()
 #an unpuaseing function 
 def unpause():
     global pause
     pause = False
     
-#if the game is supposed to be paused than this function is used ( pause key = p)
-def paused():
-
-    largeText = pyg.font.SysFont("comicsansms",115)
-    TextSurf, TextRect = text_objects("Paused", largeText)
-    TextRect.center = ((display_width/2),(display_height/2))
-    gameDisplay.blit(TextSurf, TextRect)
-    
-
-    while pause:
-        for event in pyg.event.get():
-
-            if event.type == pyg.QUIT:
-                pyg.quit()
-                quit()
-                
-        button("Continue",150,450,100,50,green,bright_green,unpause)
-        button("Quit",550,450,100,50,red,bright_red,quitgame)
-
-        pyg.gameDisplay.update()
-        clock.tick(15)   
-
+#if the game is supposed to be paused than this function is used ( pause key = p)  
 ##############################
 ##############################
 
 ##############################
 ######## main menu ###########
 ##############################
-def game_intro():
-
-    intro = True
-
-    while intro:
-        for event in pyg.event.get():
-
-            if event.type == pyg.QUIT:
-                pyg.quit()
-                quit()
-                
-        gameDisplay.fill(white)
-        largeText = pyg.font.SysFont("amatic-sc.bold.ttf",50)
-        TextSurf, TextRect = text_objects("wanna play dodge ball in minecraft mode?", largeText)
-        TextRect.center = ((display_width/2),(display_height/2))
-        gameDisplay.blit(TextSurf, TextRect)
-
-        button("GO!",150,450,100,50,green,bright_green,game_loop)
-		
-        button("Quit",550,450,100,50,red,bright_red,quitgame)
-
-        pyg.display.update()
-        clock.tick(15)
-##############################
-##############################
-    
-    
-############################## 
-######### game loop ##########
-##############################
-    
+""" """  
 def game_loop():
     global pause
 
     x = (display_width * 0.45)
     y = (display_height * 0.8)
  
-    x_change = 0
+
  
     thing_startx = random.randrange(0, display_width)
     thing_starty = -600
-    #thing_speed = 20
-    thing_speed = 100
+    thing_speed = 20
     thing_width = 100
     thing_height = 100
  
@@ -180,28 +184,14 @@ def game_loop():
  
     while not gameExit:
  
-        for event in pyg.event.get():
-            if event.type == pyg.QUIT:
-                pyg.quit()
-                quit()
- 
-            if event.type == pyg.KEYDOWN:
-                if event.key == pyg.K_LEFT:
-                    x_change = -5
-                if event.key == pyg.K_RIGHT:
-                    x_change = 5
-                if event.key == pyg.K_a:
-                    x_change = -5
-                if event.key == pyg.K_d:
-                    x_change = 5
-                if event.key == pyg.K_p:
-                    pause = True
-                    paused()
-                if event.key == pyg.K_PERIOD:
+    
+                
+                    
+                if event.key == pygame.K_PERIOD:
                     enemy(thing_startx, thing_starty, thing_width, thing_height, block_color)
  
-            if event.type == pyg.KEYUP:
-                if event.key == pyg.K_LEFT or event.key == pyg.K_RIGHT or event.key == pyg.K_a or event.key == pyg.K_d:
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT or event.key == pygame.K_a or event.key == pygame.K_d:
                     x_change = 0
  
         x += x_change
@@ -213,9 +203,9 @@ def game_loop():
  
         
         thing_starty += thing_speed
-        plyr(x,y)
+        
         enemy_hits(hits_taken)
-        font = pyg.font.Font("amatic-sc.bold.ttf", 25) 
+        font = pygame.font.Font("amatic-sc.bold.ttf", 25) 
 #        if x > display_width - plyr_width or x < 0:
         if hits_taken >= 25 and hits_taken <= 50:
 	
@@ -229,7 +219,7 @@ def game_loop():
 	        gameDisplay.blit(text2,(0,20))
 
         elif hits_taken >= 101:
-           fail()
+           quit()
 
 		
         if thing_starty > display_height:
@@ -238,10 +228,10 @@ def game_loop():
             hits_taken += 1
             thing_width += (hits_taken + 1 ) 
 		
-        pyg.display.update()
+        pygame.display.update()
         clock.tick(60)
 ### initiating stuff ###
-game_intro()
-game_loop()
-pyg.quit()
+
+game_loop()""" 
+pygame.quit()
 quit()
