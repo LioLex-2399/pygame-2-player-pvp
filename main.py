@@ -1,7 +1,7 @@
 ##############################
 #readying modules n packages##
 ##############################
-from plyrmanager import time
+
 #import
 import pygame
 import time
@@ -10,7 +10,7 @@ from gameDisplay import (
 gameDisplay
 )
 import skins
-import winner
+import lvl
 #from gameDisplay import (
 #gameDisplay
 #)
@@ -105,12 +105,9 @@ def mainmenu():
 	
 		pygame.display.update()
 		clock.tick(60)
-#skins.SkinGallery()
+#SkinGallery()
 mainmenu()
 plyskin="plyrs/s3.png"
-ply1=3
-ply2=0
-#lvl
-#plyrmanage
-#winner.win(ply1,ply2)
 
+pygame.quit()
+quit()

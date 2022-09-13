@@ -2,8 +2,10 @@ import pygame
 from gameDisplay import(
 gameDisplay
 ) 
+from plyrmanager import plyrmanage
+from lvl import lvl1
 from time import sleep
-from skins2 import SkinGallery2
+import random
 plyrskin="plyrs/s1.png"
 s1="plyrs/s1.png"
 s2="plyrs/s2.png"
@@ -17,7 +19,8 @@ s9="plyrs/s9.png"
 clock = pygame.time.Clock()
 background_colour=255,255,255
 gameDisplay.fill(background_colour)
-def SkinGallery():
+def SkinGallery2(skin1):
+	skin1=skin1
 	plyskin=plyrskin
 	s1="plyrs/s1.png"
 	s2="plyrs/s2.png"
@@ -41,6 +44,10 @@ def SkinGallery():
 	bckgrd=1,4,54
 	gameDisplay.fill(bckgrd)
 	while True:
+		font1 = pygame.font.Font('amatic-sc.bold.ttf', 40)
+		img1 = font1.render('player 2 menu ', True, (200,240,0))
+		gameDisplay.blit(img1, (200, 123))
+
 		
 		image1 = pygame.image.load(s1)
 		gameDisplay.blit(image1, (40, 10))
@@ -91,7 +98,7 @@ def SkinGallery():
 				if event.key == pygame.K_9 :
 					plyskin=s9
 				if event.key == pygame.K_RETURN:
-					SkinGallery2(plyskin)
+					plyrmanage(skin1,plyskin)
 		
 		if plyskin == s1:
 			image = pygame.image.load(s1p)
@@ -134,27 +141,29 @@ def SkinGallery():
 		img1 = font1.render('___tips!___', True, (0,255,0))
 		gameDisplay.blit(img1, (12, 93))
 
+
+
+		
 		font1 = pygame.font.Font('amatic-sc.bold.ttf', 22)
 		img1 = font1.render('-use the keys 1 to 9 ', True, (2,240,0))
-		gameDisplay.blit(img1, (12, 123))
-		
+		gameDisplay.blit(img1, (12, 143))		
 
 		font1 = pygame.font.Font('amatic-sc.bold.ttf', 22)
 		img1 = font1.render('to navigate through ', True, (2,240,0))
-		gameDisplay.blit(img1, (12, 143))
-
-		font1 = pygame.font.Font('amatic-sc.bold.ttf', 22)
-		img1 = font1.render('skins', True, (2,240,0))
 		gameDisplay.blit(img1, (12, 163))
 
 		font1 = pygame.font.Font('amatic-sc.bold.ttf', 22)
-		img1 = font1.render('- finished yet?   ', True, (2,240,0))
+		img1 = font1.render('skins', True, (2,240,0))
 		gameDisplay.blit(img1, (12, 183))
+
+		font1 = pygame.font.Font('amatic-sc.bold.ttf', 22)
+		img1 = font1.render('- finished yet?   ', True, (2,240,0))
+		gameDisplay.blit(img1, (12, 203))
 
 		
 		font1 = pygame.font.Font('amatic-sc.bold.ttf', 22)
 		img1 = font1.render('press "Enter" if yes', True, (2,240,0))
-		gameDisplay.blit(img1, (12, 203))
+		gameDisplay.blit(img1, (12, 223))
 
 		
 		pygame.display.update()
@@ -163,7 +172,3 @@ def SkinGallery():
 #	plyrskin=plyskin
 plyrskin=plyrskin
 pygame.font.init()
-
-###################################
-###################################
-###################################
